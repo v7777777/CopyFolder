@@ -20,25 +20,28 @@ public class Main {
             Path pastFolder = Paths.get(scannerPast.nextLine());
 
 
+       if (pastFolder.equals(copyFolder.resolve(copyFolder.relativize(pastFolder)))) {
+           System.out.println("copy folder inside itself is not possible"); continue;   }
+
         Path pastFolderUpd = Paths.get(pastFolder + "\\" + copyFolder.toFile().getName());
-        pastFolderUpd.toFile().mkdir();  //  создаем папку корень (которую копируем)
+        pastFolderUpd.toFile().mkdir();
 
 
-        Files.walkFileTree(copyFolder, new SimpleFileVisitor<>() {
+           Files.walkFileTree(copyFolder, new SimpleFileVisitor<>() {
               @Override
-           public FileVisitResult preVisitDirectory(Path currentDir, BasicFileAttributes attrs) throws IOException //preVisitDirectory – Invoked before a directory's entries are visited.
+           public FileVisitResult preVisitDirectory(Path currentDir, BasicFileAttributes attrs) throws IOException
              {
-                 if (attrs.isDirectory())
-                 {pastFolderUpd.resolve(copyFolder.relativize(currentDir)).toFile().mkdir();}  // создаем папку в папке вставить
+
+                 pastFolderUpd.resolve(copyFolder.relativize(currentDir)).toFile().mkdir();
                  return FileVisitResult.CONTINUE;
              }
 
 
              @Override
-            public FileVisitResult visitFile(Path currentFile, BasicFileAttributes attrs) throws IOException { //Invoked on the file being visited
-                                                                                              // вычисляем путь между корнем (без корня) и текущей папкой
-                Path finalPath = pastFolderUpd.resolve(copyFolder.relativize(currentFile)); // добавляем [путь между корнем (без корня) и текущей папкой] к [папке назначения + корень копируемой]
-            
+            public FileVisitResult visitFile(Path currentFile, BasicFileAttributes attrs) throws IOException {
+
+                Path finalPath = pastFolderUpd.resolve(copyFolder.relativize(currentFile));
+
                 try{ Files.copy(currentFile, finalPath, StandardCopyOption.REPLACE_EXISTING);}
                 catch (IOException e) {e.printStackTrace();}
                 return FileVisitResult.CONTINUE;
@@ -48,7 +51,11 @@ public class Main {
 
         });
 
-    }}}
+    }
+
+
+
+    }}
 
 
 
