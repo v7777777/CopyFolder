@@ -17,7 +17,7 @@
   </component>
   <component name="ProjectId" id="1UvLuVi8I9Lsai8Mm7tS8Qgax7G" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../дз 9 2 копировать  walk file tree с коментами" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -63,17 +63,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>29</line>
+          <line>32</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>44</line>
+          <line>50</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>12</line>
+          <line>15</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>

@@ -2,7 +2,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.EnumSet;
+
 import java.util.Scanner;
+import java.util.Set;
 
 
 public class Main {
@@ -20,20 +23,23 @@ public class Main {
             Path pastFolder = Paths.get(scannerPast.nextLine());
 
 
-       if (pastFolder.equals(copyFolder.resolve(copyFolder.relativize(pastFolder)))) {
-           System.out.println("copy folder inside itself is not possible"); continue;   }
 
-        Path pastFolderUpd = Paths.get(pastFolder + "\\" + copyFolder.toFile().getName());
-        pastFolderUpd.toFile().mkdir();
+
+           Path pastFolderUpd = Paths.get(pastFolder + "\\" + copyFolder.toFile().getName());
+           pastFolderUpd.toFile().mkdir();
+
 
 
            Files.walkFileTree(copyFolder, new SimpleFileVisitor<>() {
               @Override
            public FileVisitResult preVisitDirectory(Path currentDir, BasicFileAttributes attrs) throws IOException
              {
-
-                 pastFolderUpd.resolve(copyFolder.relativize(currentDir)).toFile().mkdir();
+                 if (  Files.isSameFile(currentDir, pastFolderUpd) ) {return FileVisitResult.SKIP_SUBTREE;} // если копировать папку внутрь себя
+                 Path finalPath = pastFolderUpd.resolve(copyFolder.relativize(currentDir));
+                 try{ Files.copy(currentDir, finalPath, StandardCopyOption.REPLACE_EXISTING);}
+                 catch (IOException e) {e.printStackTrace();}
                  return FileVisitResult.CONTINUE;
+
              }
 
 
@@ -49,7 +55,8 @@ public class Main {
             }
 
 
-        });
+
+           });
 
     }
 
